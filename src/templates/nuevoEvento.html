@@ -1,0 +1,57 @@
+<div class="panel">
+    <div class="panel-heading">
+        <h2 class="panel-title">Agregar Nuevo Evento</h2>
+    </div>
+    <form name="modalForm" class="panel-body">
+        <div class="form-group">
+            <label for="descripcion">Titulo del evento</label>
+            <span>
+                <input type="text" name="descripcion" id="descripcion" class="form-control" 
+                    ng-model="modalCtrl.eventoNuevo.descripcion" required>
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="tipoRepeticion">Tipo de Periodicidad</label>
+            <span>
+                <select name="tipoRepeticion" id="tipoRepeticion" class="form-control"
+                    ng-model="modalCtrl.eventoNuevo.tipoRepeticion" required>
+                    <option value="" selected disabled>- Selecciona una opcion -</option>
+                    <option ng-repeat="name in modalCtrl.nombreOpciones" 
+                        value="{{$index}}">
+                        {{name}}
+                    </option>
+                </select>
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="fechaInicio">Fecha de Inicio</label>
+            <span>
+                <input name="fechaInicio" id="fechaInicio" type="date" ng-model="modalCtrl.eventoNuevo.fechaInicio" 
+                    class="form-control" min="{{modalCtrl.fechaMin()}}" max="{{modalCtrl.fechaMax()}}" readonly
+                    style="line-height: 1.42857143 !important;">
+            </span>
+        </div>
+        <div class="form-group" ng-show="modalCtrl.eventoNuevo.tipoRepeticion !== '0' && modalCtrl.eventoNuevo.tipoRepeticion">
+            <label for="fechaFin">Fecha de Fin</label>
+            <span>
+                <input name="fechaFin" id="fechaFin" type="date" ng-model="modalCtrl.eventoNuevo.fechaFin"
+                    class="form-control" min="{{modalCtrl.fechaMin()}}" max="{{modalCtrl.fechaMax()}}" 
+                    ng-required="modalCtrl.eventoNuevo.tipoRepeticion !== '0'" style="line-height: 1.42857143 !important;">
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="horaEvento">Hora del Evento</label>
+            <span>
+                <div id="horaEvento" uib-timepicker ng-model="modalCtrl.hora" hour-step="1" 
+                    minute-step="30" show-meridian="false" readonly-input="true"></div>
+            </span>
+        </div>
+        <div ng-if="modalCtrl.error" style="background-color: #fa0000; color: #fafafa">
+            Lo sentimos, llene todos los valores e intente de nuevo
+        </div>
+    </form>
+    <div class="panel-footer">
+        <button id="cancel" class="btn btn-link" ng-click="modalCtrl.closeModal()">Cancelar</button>
+        <button id="ok" class="btn btn-primary" ng-click="modalCtrl.addEvent()">Agregar</button>
+    </div>
+</div>

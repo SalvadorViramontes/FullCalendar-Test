@@ -1,0 +1,9 @@
+#calendar {
+    width: auto;
+    height: auto;
+    z-index: 0;
+}
+
+.popover {
+    display: block !important;
+}
